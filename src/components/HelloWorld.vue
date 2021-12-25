@@ -1,61 +1,46 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p class="text-4xl">
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">typescript</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="min-h-screen min-w-screen bg-gray-100 flex items-center justify-center">
+    <div class="flex flex-col max-w-md bg-white px-8 py-6 rounded-xl space-y-5 items-center">
+      <h1 class="font-bold text-gray-900 text-xl">{{ user.login }} from GitHub</h1>
+      <img class="w-full rounded-md" :src="user.avatar_url" :alt="'This is ' + user.name" />
+      <p class="text-center leading-relaxed">{{ user.bio }}</p>
+      <a class="w-100 px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent"
+      :href="user.html_url" target="_blank">Visit GitHub Profile</a>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { defineComponent } from 'vue';
+import UserService from "@/services/UserService";
+import User from "@/types/User";
+import ResponseData from '@/types/ResponseData';
 
-@Options({
-  props: {
-    msg: String
+export default defineComponent({
+  name: 'git-user',
+  data() {
+    return {
+      user: {} as User
+    }
+  },
+  methods: {
+    get(username: string) {
+      UserService.get(username)
+          .then((response: ResponseData) => {
+            this.user = response.data;
+            console.log(response.data);
+          })
+          .catch((e: Error) => {
+            console.log(e)
+      });
+    }
+  },
+  mounted() {
+    this.get('joelbladt')
   }
 })
-export default class HelloWorld extends Vue {
-  msg!: string
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>
