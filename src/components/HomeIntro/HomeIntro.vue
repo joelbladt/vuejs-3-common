@@ -30,7 +30,7 @@
 
         </div>
         <div>
-          <img class="w-2/3 rounded-full mt-10 mx-16 shadow-md border-8 border-white"
+          <img class="w-2/3 rounded-full mt-10 mx-16 shadow-md border-8 border-solid border-white"
                src="https://media-exp1.licdn.com/dms/image/C4E03AQEPa43X6P0OHw/profile-displayphoto-shrink_800_800/0/1517583180824?e=1665619200&v=beta&t=-Y3zSVW2PLyXTFLwbyVbdWuLaaDz8HEoK0yt993Ta08"
                alt="#" />
         </div>
