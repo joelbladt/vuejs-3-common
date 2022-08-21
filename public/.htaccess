@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # The following examples assume you are serving your app from the root folder. If you deploy to a
+  # subfolder, you should use the publicPath option of Vue CLI (opens new window) and the related
+  # base property of the router (opens new window). You also need to adjust the examples below to use
+  # the subfolder instead of the root folder (e.g. replacing RewriteBase / with
+  # RewriteBase /name-of-your-subfolder/).
+  RewriteBase /
+
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
